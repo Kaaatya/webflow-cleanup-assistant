@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Webflow Cleanup Assistant</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header class="header">
+      <h1 class="title">Webflow Cleanup Assistant</h1>
+      <p class="subtitle">Webflow handoff readiness for the active tab</p>
+    </header>
+
+    <section class="intro" id="intro" aria-label="What this extension checks">
+      <p>
+        Run a quick DOM audit on the <strong>published page</strong> you have
+        open: class naming, combo classes, structure, semantics, accessibility,
+        and spacing. Third-party libraries (Swiper, Slick, Splide…), Webflow
+        runtime classes, and SVG markup are excluded so the score reflects
+        actual development quality. Page complexity is reported separately.
+      </p>
+    </section>
+
+    <div class="toolbar">
+      <button type="button" id="analyzeBtn" class="btn btn-primary">
+        Analyze page
+      </button>
+    </div>
+
+    <div class="toolbar-secondary">
+      <button
+        type="button"
+        id="copyClientBtn"
+        class="btn btn-secondary"
+        disabled
+        title="Copy a short Markdown summary for clients"
+      >
+        Copy client-friendly report
+      </button>
+      <button
+        type="button"
+        id="copyJsonBtn"
+        class="btn btn-ghost"
+        disabled
+        title="Copy full raw audit as JSON"
+      >
+        Copy report JSON
+      </button>
+    </div>
+
+    <div id="status" class="status" role="status" aria-live="polite"></div>
+
+    <section id="results" class="results hidden">
+      <div class="score-hero">
+        <div
+          class="verdict-block score-badge score-badge--neutral"
+          id="verdictBlock"
+        >
+          <div class="verdict-label" id="verdictLabel">—</div>
+          <p class="verdict-helper" id="verdictHelper"></p>
+        </div>
+        <div class="score-card score-card--neutral" id="scoreCard">
+          <div class="score-value" id="scoreValue">—</div>
+          <div class="score-sublabel" id="scoreSublabel"></div>
+          <div class="score-bar" aria-hidden="true">
+            <div class="score-bar__track">
+              <div class="score-bar__fill" id="scoreBarFill"></div>
+            </div>
+          </div>
+          <div class="score-label">Cleanup score</div>
+        </div>
+      </div>
+
+      <div class="meta-row">
+        <span
+          class="complexity-badge complexity-badge--low"
+          id="complexityBadge"
+          title="Page technical complexity (separate from cleanup quality)"
+        >
+          <span class="complexity-badge__label">Complexity</span>
+          <span class="complexity-badge__value" id="complexityValue">—</span>
+        </span>
+        <span class="complexity-signals" id="complexitySignals"></span>
+      </div>
+
+      <p class="ignored-note" id="ignoredNote" hidden></p>
+
+      <details class="score-breakdown" id="scoreBreakdownDetails">
+        <summary class="score-breakdown__summary">Why this score?</summary>
+        <div class="score-breakdown__body" id="scoreBreakdownList"></div>
+      </details>
+
+      <div class="severity-summary" id="severitySummary" aria-label="Issue counts by severity">
+        <span class="severity-stat critical"
+          ><span class="severity-stat-label">Critical</span>
+          <span class="severity-stat-num" id="countCritical">0</span></span
+        >
+        <span class="severity-stat warning"
+          ><span class="severity-stat-label">Warnings</span>
+          <span class="severity-stat-num" id="countWarning">0</span></span
+        >
+        <span class="severity-stat info"
+          ><span class="severity-stat-label">Info</span>
+          <span class="severity-stat-num" id="countInfo">0</span></span
+        >
+      </div>
+
+      <div id="positiveState" class="positive-state hidden" role="status">
+        <strong>No blocking issues</strong>
+        <p>
+          This scan did not find critical or warning-level items. You’re in
+          good shape for handoff from a cleanup perspective—still give the page
+          a final visual pass before client review.
+        </p>
+      </div>
+
+      <p class="summary" id="summaryText"></p>
+
+      <div id="issuesContainer" class="issues-container"></div>
+    </section>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
