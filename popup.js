@@ -510,21 +510,6 @@
     }
   }
 
-  function logAnalysisDebug(report) {
-    const counts = countSeverities(report);
-    const totalIssues = counts.critical + counts.warning + counts.info;
-    console.log("[Webflow Cleanup Assistant] analysis debug", {
-      totalIssues,
-      issuesBySeverity: counts,
-      scoreBreakdown: report.scoreBreakdown,
-      finalScore: report.score,
-      scoreLabel: report.scoreLabel,
-      verdict: report.verdict,
-      complexity: report.complexity,
-      ignoredFindings: report.ignoredFindings,
-    });
-  }
-
   function renderReport(report) {
     const normalized = normalizeScore(report.score);
 
@@ -668,7 +653,6 @@
       }
 
       lastReport = raw;
-      logAnalysisDebug(raw);
       renderReport(raw);
 
       const c = countSeverities(raw);

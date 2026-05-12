@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Webflow Cleanup Assistant",
-  "version": "1.0.0",
-  "description": "Audit published Webflow pages and get a DOM cleanup report in the popup.",
+  "version": "1.1.0",
+  "description": "DOM cleanup audit for published Webflow sites—score, structure, classes, a11y, and handoff readiness in one click.",
   "action": {
     "default_popup": "popup.html",
     "default_title": "Webflow Cleanup Assistant",
